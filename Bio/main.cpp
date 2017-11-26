@@ -1,35 +1,32 @@
 
 #include <iostream>
 #include <fstream>
-#include <cstring>
+#include <string>
 
 using namespace std;
 
-int PatternCount(char* DNK, char* pattern)
+int PatternCount(string DNK, string pattern)
 {
 	int count = 0;
-	const char* buf = DNK;
-	while (strstr(buf, pattern) != NULL)
+	string buf = DNK;
+	for (int i = 0; i < buf.size(); i++)
 	{
-		buf = strstr(buf, pattern);
-		++count;
-		++buf;
+		if (pattern == buf.substr(i, pattern.size()))
+		{
+			++count;
+		}
 	}
 	return count;
 }
 
 int main()
 {
-	const int len = 50;
-	char DNK [len];
-	char pattern[5];
-	int x;
+	string DNK;
+	string pattern;
 
 	ifstream fin("input.txt");
 	fin >> pattern;
 	cout << pattern << endl;
-	x = 5 / 3;
-	cout << x;
 	fin >> DNK;
 	cout << DNK;	
 	fin.close();
