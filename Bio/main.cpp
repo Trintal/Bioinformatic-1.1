@@ -18,17 +18,6 @@ void Refresh(int*&ind, int len)
 	}
 }
 
-int Num(string _filename)
-{
-	int res = 0;
-	string s;
-	ifstream fin(_filename, ios_base::in);
-	if (fin.is_open()) while (getline(fin, s)) res++;
-	else return 0;
-	fin.close();
-	return res;
-}
-
 int Hamming(string s1, string s2)
 {
 	int res = 0;
@@ -41,8 +30,8 @@ int Hamming(string s1, string s2)
 }
 int totalHam(string *DNA, string v, int t)
 {
-
 	int res = 0;
+	int Finalres = 0;
 	int min = v.length()+ 1;
 
 	for (int i = 1; i < t; i++)
@@ -54,17 +43,17 @@ int totalHam(string *DNA, string v, int t)
 				min = Hamming(v, DNA[i].substr(j, v.length()));
 			}
 		}
-		res += min;
+		Finalres += min;
 		min = v.length() + 1;
 
 	}
-	return res;
+	return Finalres;
 }
 
 
 void FindMedian(string &median, string *DNA, int num, int len, int n)
 {
-	int bestDist = INT_MAX;
+	int bestDist = 10000000;
 	string  bestWord = "";
 	int i = 0;
 	while (i < len)
@@ -96,13 +85,17 @@ void FindMedian(string &median, string *DNA, int num, int len, int n)
 }
 
 int main() {
-	list<string> motifs;
+	string size;
 	string *DNA;
 	string median;
 	int len;
+	int num = 0;
+	ifstream fin2("input.txt", ios_base::in);
+	while (fin2 >> size)
+		num++;
 	ifstream fin("input.txt", ios_base::in);
-	fin >> len;
-	DNA = new string[Num("input.txt")];
+	fin >> len;	
+	DNA = new string[num]; // [Num("input.txt")];
 	int j = 0;
 	while (getline(fin, DNA[j])) j++;
 	FindMedian(median, DNA, j, len, DNA[0].length());
