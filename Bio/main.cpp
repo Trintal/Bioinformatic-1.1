@@ -30,7 +30,9 @@ int main() {
 	while (getline(fin, DNA[j])) j++;
 	FindMedian(median, DNA, j, len, DNA[0].length());
 	delete[]DNA;
-	cout << "median " << median << endl;
+	ofstream fout("output.txt");
+	fout << median << endl;
+	fout.close();
 	return 0;
 }
 
